@@ -6,7 +6,7 @@ const apiRoutes = require('./routes/apiRoutes');
 const webRoutes = require('./routes/webRoutes');
 const crypto = require('crypto');
 const path = require('path');
-let a = 30;
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 const secretKey = crypto.randomBytes(32).toString('hex');
