@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const config = require('./config/config');
 const path = require('path');
 module.exports = {

@@ -24,7 +24,7 @@ exports.registerUser = (req, res) => {
         } else if (err) {
             res.status(statusCodes.INTERNAL_SERVER_ERROR).
                 json({
-                    message: statusCodes.INTERNAL_SERVER_ERROR,
+                    status: statusCodes.INTERNAL_SERVER_ERROR,
                     message: errorMessages.INTERNAL_SERVER_ERROR
                 });
             return;
@@ -43,14 +43,14 @@ exports.getAllUsers = (req, res) => {
     });
 };
 
-exports.addUser = (req, res) => {
+exports.addUser = () => {
     // Add user logic
 };
 
-exports.updateUser = (req, res) => {
+exports.updateUser = () => {
     // Update user logic
 };
 
-exports.deleteUser = (req, res) => {
+exports.deleteUser = () => {
     // Delete user logic
 };
