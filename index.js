@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3001;
 const secretKey = crypto.randomBytes(32).toString('hex');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+let a = 30;
 // Configure session middleware
 app.use(session({
     secret: secretKey, // Add a secret key for session encryption
