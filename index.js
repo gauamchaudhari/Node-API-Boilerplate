@@ -8,7 +8,7 @@ const crypto = require('crypto');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.APPLICATION_PORT || 3001;
 const secretKey = crypto.randomBytes(32).toString('hex');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
