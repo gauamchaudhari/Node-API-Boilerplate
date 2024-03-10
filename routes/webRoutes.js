@@ -6,7 +6,7 @@ const path = require('path');
 
 // Middleware to check if user is authenticated
 function isAuthenticated(req, res, next) {
-    console.log("session::",req.session.userEmail);
+   
     if (req.session.userEmail) {
         // User is authenticated, proceed to next middleware
         next();

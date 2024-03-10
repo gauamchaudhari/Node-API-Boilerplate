@@ -61,7 +61,7 @@ class User {
                 callback(err, null);
                 return;
             }
-            console.log(results);
+            
             callback(null, results[0]);
         });
     }
