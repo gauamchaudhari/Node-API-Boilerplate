@@ -3,7 +3,7 @@ const authController = require('../controllers/authController');
 const userController = require('../controllers/userController');
 const { registrationValidationRules, validate } = require('../validation/validation');
 const sendEmailController = require('../controllers/sendEmailController');
-const { uploadSingleImage } = require('../controllers/uploadsFilesController');
+// const { uploadSingleImage } = require('../controllers/uploadsFilesController');
 
 const router = express.Router();
 // Create an instance of the ImageUpload class
