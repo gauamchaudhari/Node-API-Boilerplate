@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const express = require('express');
 const bodyParser = require('body-parser');
-const session = require('express-session'); // Import express-session
+const session = require('express-session');
 const apiRoutes = require('./routes/apiRoutes');
 const webRoutes = require('./routes/webRoutes');
 const crypto = require('crypto');
@@ -10,18 +10,25 @@ const path = require('path');
 const app = express();
 const PORT = process.env.APPLICATION_PORT || 3001;
 const secretKey = crypto.randomBytes(32).toString('hex');
+
+// Set 'views' directory for any views
+app.set('views', path.join(__dirname, 'views'));
+// Set Pug as the template engine
+app.set('view engine', 'pug');
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Configure session middleware
 app.use(session({
-    secret: secretKey, // Add a secret key for session encryption
+    secret: secretKey,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: { secure: false }
 }));
 
-// Serve static files (HTML, CSS, JavaScript) from the 'public' directory
-app.use(express.static(path.join(__dirname, 'views')));
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/api', apiRoutes);

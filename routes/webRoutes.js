@@ -7,17 +7,16 @@ const path = require('path');
 // Middleware to check if user is authenticated
 function isAuthenticated(req, res, next) {
    
-    if (req.session.userEmail) {
-        // User is authenticated, proceed to next middleware
+    if (req.session.userEmail) {         
         next();
-    } else {
-        // User is not authenticated, redirect to login page
+    } else {            
         res.redirect('/web/login');
     }
 }
 
-// Handle login form submission
+
 router.post('/web/login', authController.login);
+
 
 // Render login.html when accessing /web/login
 router.get('/web/login', (req, res) => {
@@ -25,9 +24,8 @@ router.get('/web/login', (req, res) => {
 });
 
 // Dashboard route - accessible only to authenticated users
-router.get('/dashboard', isAuthenticated, (req, res) => {
-    // Assuming you have a dashboard.html file in the 'views' directory
-    res.sendFile(path.join(__dirname, '../views', 'dashboard.html'));
+router.get('/dashboard', isAuthenticated, (req, res) => {    
+    res.render('dashboard', { title: 'Dashboard', user: req.session.userEmail });
 });
 
 module.exports = router;
