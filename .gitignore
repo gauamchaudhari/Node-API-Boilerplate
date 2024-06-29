@@ -134,3 +134,4 @@ dist
 Docker/
 app_logs.txt
 node-api.pem
+uploads/
