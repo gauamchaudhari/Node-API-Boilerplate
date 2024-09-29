@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const { statusCodes, errorMessages,users } = require('../constants/app.constants');
+const { statusCodes, errorMessages, users } = require('../constants/app.constants');
 const bcrypt = require('bcryptjs');
 
 exports.registerUser = (req, res) => {
@@ -29,7 +29,7 @@ exports.registerUser = (req, res) => {
                 });
             return;
         }
-        res.status(statusCodes.SUCCESS).json({ message: users.SUCCESS_REGISTRATION , userId });
+        res.status(statusCodes.SUCCESS).json({ message: users.SUCCESS_REGISTRATION, userId });
     });
 };
 
@@ -43,14 +43,48 @@ exports.getAllUsers = (req, res) => {
     });
 };
 
+exports.getUser = (req, res) => {
+    const id = req.params.id;
+    User.findById(id, (err, user) => {
+        if (err) {
+            return res.status(500).json({ message: 'Error fetching user', error: err });
+        }
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json({ status: 200, data: user });
+    });
+};
+
 exports.addUser = () => {
     // Add user logic
 };
 
-exports.updateUser = () => {
-    // Update user logic
+exports.updateUser = (req, res) => {
+    const userId = req.params.id;
+    const newUserData = req.body;
+    User.update(userId, newUserData, (err, success) => {
+        if (err) {
+            return res.status(500).json({ message: 'Error updating user', error: err });
+        }
+        if (success) {
+            return res.status(200).json({ message: 'User updated successfully' });
+        } else {
+            return res.status(404).json({ message: 'User not found' });
+        }
+    });
 };
 
-exports.deleteUser = () => {
-    // Delete user logic
+exports.deleteUser = (req, res) => {
+    const userId = req.params.id;
+    User.delete(userId, (err, success) => {
+        if (err) {
+            return res.status(500).json({ message: 'Error deleting user', error: err });
+        }
+        if (success) {
+            return res.status(200).json({ message: 'User deleted successfully' });
+        } else {
+            return res.status(404).json({ message: 'User not found' });
+        }
+    });
 };

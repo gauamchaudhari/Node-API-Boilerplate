@@ -6,6 +6,16 @@ const apiRoutes = require('./routes/apiRoutes');
 const webRoutes = require('./routes/webRoutes');
 const crypto = require('crypto');
 const path = require('path');
+const cors = require('cors');
+const { Model } = require('objection');
+const Knex = require('knex');
+const knexConfig = require('./knexfile');
+
+
+const knex = Knex(knexConfig.development);
+
+// Bind Objection to the Knex instance
+Model.knex(knex);
 
 const app = express();
 const PORT = process.env.APPLICATION_PORT || 3001;
@@ -27,9 +37,9 @@ app.use(session({
     cookie: { secure: false }
 }));
 
+app.use(cors()); // Enable CORS for all routes
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
-
 // Routes
 app.use('/api', apiRoutes);
 app.use(webRoutes);

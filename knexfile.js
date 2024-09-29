@@ -16,6 +16,7 @@ module.exports = {
       seeds: {
         directory: path.join(__dirname, 'database', 'seeds'),
       },
+      debug: true,
     },
   };
   
