@@ -16,7 +16,7 @@ class Roles extends Model {
             }
         };
     }
-
+   // get all
     static async getAll() {
         try {
             const roles = await Roles.query();
