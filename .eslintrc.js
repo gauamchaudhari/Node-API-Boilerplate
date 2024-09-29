@@ -2,32 +2,28 @@ module.exports = {
 	'env': {
 		'browser': true,
 		'commonjs': true,
-		'es2021': true
+		'es2021': true,
+		'node': true, // Add node environment globally
+		'es6': true
 	},
 	'extends': 'eslint:recommended',
-	'overrides': [
-		{
-			'env': {
-				'node': true
-			},
-			'files': [
-				'.eslintrc.{js,cjs}'
-			],
-			'parserOptions': {
-				'sourceType': 'script'
-			}
-		}
-	],
 	'parserOptions': {
-		'ecmaVersion': 'latest'
+		'ecmaVersion': 'latest',
+		'sourceType': 'script'
 	},
 	'rules': {
-		
 		'linebreak-style': [
 			'error',
 			'unix'
-		],
-		
-		
-	}
-}
+		]
+	},
+	'overrides': [
+		{
+			'files': ['*.js'], // Apply to all JS files
+			'env': {
+				'node': true, // Ensure Node.js is recognized in JS files
+				'es6': true
+			}
+		}
+	]
+};
