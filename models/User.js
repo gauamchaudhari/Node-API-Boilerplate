@@ -12,7 +12,7 @@ connection.connect(err => {
 });
 
 class User {
-  
+
     static create(user, callback) {
         const sqlCheckEmail = 'SELECT COUNT(*) AS count FROM users WHERE email = ?';
         connection.query(sqlCheckEmail, user.email, (err, results) => {
@@ -21,36 +21,48 @@ class User {
                 callback('Internal server error', null);
                 return;
             }
-    
+
             if (results[0].count > 0) {
                 const errorMessage = 'Email is already registered';
                 callback(errorMessage, null);
                 return;
             }
-    
+
             const sqlInsertUser = 'INSERT INTO users SET ?';
             connection.query(sqlInsertUser, user, (err, results) => {
-               
+
                 if (err) {
                     console.error('Error creating user:', err);
                     callback('Internal server error', null);
                     return;
                 }
-                
+
                 callback(null, results.insertId);
             });
         });
     }
-    
+
 
     static getAll(callback) {
-        const sql = 'SELECT id,first_name,last_name,email,phone,address,gender FROM users';
+        const sql = 'SELECT id,first_name,last_name,email,phone,address,gender FROM users where deleted_at IS NULL ORDER BY id desc';
         connection.query(sql, null, (err, results) => {
             if (err) {
                 callback(err, null);
                 return;
             }
             callback(null, results);
+        });
+    }
+
+    static findById(id, callback) {
+        const sql = 'SELECT * FROM users WHERE id= ?';
+        connection.query(sql, [id], (err, results) => {
+            if (err) {
+                callback(err, null);
+                return;
+            }
+
+            callback(null, results[0]);
         });
     }
 
@@ -61,22 +73,22 @@ class User {
                 callback(err, null);
                 return;
             }
-            
+
             callback(null, results[0]);
         });
     }
     static fetchAllUsers() {
         return new Promise((resolve, reject) => {
-          const sql = 'SELECT * FROM users';
-          connection.query(sql,[], (err, results) => {
-            if (err) {
-              reject(err);
-              return;
-            }
-            resolve(results);
-          });
+            const sql = 'SELECT * FROM users';
+            connection.query(sql, [], (err, results) => {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                resolve(results);
+            });
         });
-      }
+    }
     static update(id, newData, callback) {
         const sql = 'UPDATE users SET ? WHERE id = ?';
         connection.query(sql, [newData, id], (err, results) => {
@@ -89,7 +101,7 @@ class User {
     }
 
     static delete(id, callback) {
-        const sql = 'DELETE FROM users WHERE id = ?';
+        const sql = 'UPDATE users SET deleted_at = NOW() WHERE id = ? AND deleted_at IS NULL';
         connection.query(sql, id, (err, results) => {
             if (err) {
                 callback(err, null);

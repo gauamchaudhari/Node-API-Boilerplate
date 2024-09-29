@@ -16,6 +16,15 @@ class Roles extends Model {
             }
         };
     }
+   // get all
+    static async getAll() {
+        try {
+            const roles = await Roles.query();
+            return roles;
+        } catch (error) {
+            throw new Error(`Error fetching all roles: ${error.message}`);
+        }
+    }
 
     static async fetchByRoleName(roleName) {
         try {
