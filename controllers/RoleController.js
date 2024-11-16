@@ -8,6 +8,20 @@ class RoleController {
             res.status(500).json({ message: 'Error fetching roles', error: error.message });
         }
     }
+
+    async getRole(req,res) {
+        try {
+            const id = req.params.id;
+            const role = await Roles.findById(id);            
+            if (!role) {
+                return res.status(404).json({ status: 404, message: `Role not found` });
+            }
+            res.status(200).json({ status: 200, data: role });
+        } catch (error) {
+            res.status(500).json({ message: 'Error fetching roles', error: error.message });
+        }
+    }
+
     async create(req, res) {
         const { name } = req.body;
 

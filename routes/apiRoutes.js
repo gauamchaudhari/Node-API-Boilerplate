@@ -37,6 +37,7 @@ router.put(
     handleValidationErrors,
     roleController.updateRole
 );
+router.get('/role/:id', roleController.getRole);
 router.delete('/roles/:id', roleController.deleteRole);
 
 /* Permissions Routes */

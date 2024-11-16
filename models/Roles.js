@@ -26,6 +26,15 @@ class Roles extends Model {
         }
     }
 
+    static async findById(id) {
+        try {
+            return await Roles.query().findById(id);
+        } catch (error) {
+            throw new Error(`Error fetching role by id: ${error.message}`);
+        }
+        
+    }
+
     static async fetchByRoleName(roleName) {
         try {
             const role = await Roles.query().findOne({ name: roleName });
