@@ -4,6 +4,7 @@ module.exports = {
         ROLES: 'roles',
         PERMISSIONS: 'permissions',
         USER_ROLES: 'user_roles',
-        ROLE_PERMISSIONS: 'role_permissions'
+        ROLE_PERMISSIONS: 'role_permissions',
+        USER_FILES: 'user_files',
     }
 };

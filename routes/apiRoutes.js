@@ -1,6 +1,7 @@
 const express = require('express');
 const authController = require('../controllers/authController');
 const userController = require('../controllers/userController');
+const uploadsFilesController = require('../controllers/uploadsFilesController');
 const roleController = require('../controllers/RoleController');
 const PermissionController = require('../controllers/PermissionController');
 const authMiddleware = require('../app/ middleware/authMiddleware');
@@ -43,5 +44,6 @@ router.delete('/roles/:id', roleController.deleteRole);
 /* Permissions Routes */
 router.get('/permissions',PermissionController.index);
 // Route for uploading a single image
-router.post('/upload-image', uploadSingleImage);
+router.post('/upload-image', uploadsFilesController.uploadSingleImage);
+router.get('/user-files/:user_id', uploadsFilesController.getFilesByUserId);
 module.exports = router;

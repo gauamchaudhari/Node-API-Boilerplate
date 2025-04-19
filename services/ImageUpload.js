@@ -1,35 +1,39 @@
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
+
+const tempUploadPath = path.join(__dirname, '..', 'uploads', 'temp');
+
+fs.mkdirSync(tempUploadPath, { recursive: true });
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/');
+        cb(null, tempUploadPath); // upload to temp folder first
     },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+        cb(null, Date.now() + path.extname(file.originalname));
     }
 });
+
 class ImageUpload {
     constructor() {
         this.upload = multer({ 
-            storage: storage,
-            limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB
+            storage,
+            limits: { fileSize: 5 * 1024 * 1024 },
             fileFilter: (req, file, cb) => {
-                // Validate file type
                 const fileTypes = /jpeg|jpg|png|gif/;
                 const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
                 const mimetype = fileTypes.test(file.mimetype);
-                
+
                 if (mimetype && extname) {
                     return cb(null, true);
                 } else {
-                    cb(new Error('Only images are allowed'));
+                    cb(new Error('Only image files are allowed'));
                 }
             }
         });
     }
 
-    // Method to handle single image upload
     uploadSingleImage() {
         return this.upload.single('image');
     }

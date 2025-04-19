@@ -28,7 +28,7 @@ app.set('view engine', 'pug');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Configure session middleware
 app.use(session({
     secret: secretKey,
