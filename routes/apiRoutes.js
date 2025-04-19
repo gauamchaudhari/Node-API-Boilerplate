@@ -7,7 +7,7 @@ const PermissionController = require('../controllers/PermissionController');
 const authMiddleware = require('../app/ middleware/authMiddleware');
 const { registrationValidationRules, validate } = require('../validation/validation');
 const sendEmailController = require('../controllers/sendEmailController');
-const { uploadSingleImage } = require('../controllers/uploadsFilesController');
+
 const { validateRoleCreation,validateRoleUpdate, handleValidationErrors } = require('../validators/Role/roleValidation');
 
 const router = express.Router();
