@@ -40,7 +40,9 @@ router.put(
 );
 router.get('/role/:id', roleController.getRole);
 router.delete('/roles/:id', roleController.deleteRole);
-
+router.post('/assing-role-permission', roleController.assignRolePermission);
+router.get('/role-permissions', roleController.getAllRolePermissions);
+router.get('/role-permissions/:role_id', roleController.getRolePermissions);
 /* Permissions Routes */
 router.get('/permissions',PermissionController.index);
 // Route for uploading a single image

@@ -56,6 +56,41 @@ class RoleController {
             res.status(400).json({ message: error.message });
         }
     }
+
+    async assignRolePermission(req, res) {
+     
+        const { role_id, permissions_id } = req.body;       
+        try {
+            const assignedPermission = await Roles.assignRolePermission(role_id, permissions_id);
+            res.status(200).json({ 
+                status: 200,
+                message: 'Permissions assigned successfully',
+                data: assignedPermission 
+            });
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
+
+    async getAllRolePermissions(req, res) {        
+        try {
+            const permissions = await Roles.getAllRolePermissions();
+            res.status(200).json({ status: 200, data: permissions });
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
+
+    async getRolePermissions(req, res) {
+        const { role_id } = req.params;
+
+        try {
+            const permissions = await Roles.getRolePermissions(role_id);
+            res.status(200).json({ status: 200, data: permissions });
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
 }
 
 module.exports = new RoleController();
