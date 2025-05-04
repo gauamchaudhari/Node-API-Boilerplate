@@ -22,7 +22,8 @@ A production-ready Node.js API boilerplate with:
   - Login / Registration with JWT
   - Secure password hashing with bcrypt
   - Access control via roles and permissions
-  - ![Uploading Screenshot from 2025-05-04 15-33-15.png…]()
+![Screenshot from 2025-05-04 15-33-15](https://github.com/user-attachments/assets/b0081d50-719f-46e5-b426-3da823bd486a)
+
 
 
 - 🧑‍💼 **User Management**
