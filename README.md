@@ -53,3 +53,40 @@ A production-ready Node.js API boilerplate with:
 ```bash
 # Build and run
 docker-compose up --build
+
+---
+
+📦  **GitHub Actions – CI/CD Pipeline** 🚀
+This project supports automated deployment to an AWS EC2 instance using GitHub Actions.
+
+✅ **CI/CD Flow:**
+Push to main branch
+
+GitHub Actions runs:
+
+Linting / tests (optional)
+
+Build (if needed)
+
+SSH into EC2
+
+Pull latest code
+
+Restart server (Node.js) with PM2 or systemd
+
+An EC2 instance (Amazon Linux / Ubuntu)
+
+SSH key pair added to EC2
+
+Node.js, Git, and PM2 installed on EC2
+
+EC2's public IP or domain
+
+Your .pem or private SSH key stored in GitHub as a secret
+
+🔐** GitHub Secrets Required**
+Secret Name	Description
+EC2_HOST	Public IP or domain of EC2
+EC2_USERNAME	Default is ec2-user or ubuntu
+EC2_KEY	Your private SSH key (as plain text)
+EC2_APP_DIR	App directory on EC2 (e.g., /var/www/backend)
